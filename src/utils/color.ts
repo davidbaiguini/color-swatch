@@ -20,8 +20,11 @@ type HslColor = {
 // };
 
 export const rgb2rgb = ({ red, green, blue }: RgbColor): RgbColor => {
-  // TODO: implement
-  return { red, green, blue };
+  return {
+    red: Math.min(red, 255),
+    green: Math.min(green, 255),
+    blue: Math.min(blue, 255),
+  };
 };
 
 export const rgb2hsl = (rgbColor: RgbColor): HslColor => {
@@ -128,4 +131,47 @@ export const hsl2rgb = (hslColor: HslColor): RgbColor => {
   blue = Math.round((blue + m) * 255);
 
   return { red, green, blue };
+};
+
+class Color {
+  private _color?: RgbColor;
+
+  // constructor() {}
+
+  private get color() {
+    if (!this._color) {
+      throw new Error("You need to first set a color");
+    }
+    return this._color;
+  }
+
+  private set color(value) {
+    this._color = value;
+  }
+
+  public fromRGB(rgbColor: RgbColor): Color {
+    const { red, green, blue } = rgbColor;
+    this.color = rgb2rgb({ red, green, blue });
+    return this;
+  }
+
+  public fromHSL(hslColor: HslColor): Color {
+    const { hue, lightness, saturation } = hslColor;
+    this.color = hsl2rgb({ hue, lightness, saturation });
+    return this;
+  }
+
+  public toRGB() {
+    const { red, green, blue } = this.color;
+    return rgb2rgb({ red, green, blue });
+  }
+
+  public toHSL() {
+    const { red, green, blue } = this.color;
+    return rgb2hsl({ red, green, blue });
+  }
+}
+
+export const color = (): Color => {
+  return new Color();
 };

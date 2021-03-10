@@ -1,4 +1,4 @@
-import { hsl2rgb, rgb2hsl } from "./color";
+import { color, hsl2rgb, rgb2hsl } from "./color";
 
 // From https://www.rapidtables.com/convert/color/hsl-to-rgb.html
 const colorTable = {
@@ -21,6 +21,65 @@ const colorTable = {
 };
 
 const colorKeys = Object.keys(colorTable) as Array<keyof typeof colorTable>;
+
+describe("The Color class", () => {
+  describe("Should have the methods", () => {
+    it("fromRGB", () => {
+      expect(color()).toEqual(
+        expect.objectContaining({ fromRGB: expect.any(Function) })
+      );
+    });
+    it("toRGB", () => {
+      expect(color()).toEqual(
+        expect.objectContaining({ toRGB: expect.any(Function) })
+      );
+    });
+    it("fromHSL", () => {
+      expect(color()).toEqual(
+        expect.objectContaining({ fromHSL: expect.any(Function) })
+      );
+    });
+    it("toHSL", () => {
+      expect(color()).toEqual(
+        expect.objectContaining({ toHSL: expect.any(Function) })
+      );
+    });
+  });
+
+  describe("Should have chained methods working", () => {
+    it("fromRGB --> toRGB", () => {
+      const thisColor = color().fromRGB({ red: 0, green: 0, blue: 0 }).toRGB();
+      expect(thisColor).toStrictEqual({ red: 0, green: 0, blue: 0 });
+    });
+    it("fromHSL --> toRGB", () => {
+      const thisColor = color()
+        .fromHSL({ hue: 0, saturation: 0, lightness: 0 })
+        .toRGB();
+      expect(thisColor).toStrictEqual({ red: 0, green: 0, blue: 0 });
+    });
+  });
+
+  describe("Should fail when a color has not been set", () => {
+    it("using toRGB method", () => {
+      expect(() => {
+        color().toRGB();
+      }).toThrowError("You need to first set a color");
+    });
+    it("using toHSL method", () => {
+      expect(() => {
+        color().toHSL();
+      }).toThrowError("You need to first set a color");
+    });
+  });
+
+  //   describe("Should fail missing SOMETHING", () => {
+  //     it("using toRGB method", () => {
+  //       expect(() => {
+  //         color().fromRGB({ blue: 0, green: 0 });
+  //       }).toThrow();
+  //     });
+  //   });
+});
 
 describe("The hsl2rgb function", () => {
   describe("Should convert the colors", () => {
