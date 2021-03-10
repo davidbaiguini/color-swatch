@@ -12,93 +12,93 @@ const colorTable = {
     hsl: [0, 0, 100],
     hex: 'FFFFFF',
     rgb: [255, 255, 255],
-    brgb: [1000, 1000, 1000],
+    brgb: [10000, 10000, 10000],
   },
 
   Red: {
     hsl: [0, 100, 50],
     hex: 'FF0000',
     rgb: [255, 0, 0],
-    brgb: [1000, 0, 0],
+    brgb: [10000, 0, 0],
   },
   Lime: {
     hsl: [120, 100, 50],
     hex: '00FF00',
     rgb: [0, 255, 0],
-    brgb: [0, 1000, 0],
+    brgb: [0, 10000, 0],
   },
   Blue: {
     hsl: [240, 100, 50],
     hex: '0000FF',
     rgb: [0, 0, 255],
-    brgb: [0, 0, 1000],
+    brgb: [0, 0, 10000],
   },
   Yellow: {
     hsl: [60, 100, 50],
     hex: 'FFFF00',
     rgb: [255, 255, 0],
-    brgb: [1000, 1000, 0],
+    brgb: [10000, 10000, 0],
   },
   Cyan: {
     hsl: [180, 100, 50],
     hex: '00FFFF',
     rgb: [0, 255, 255],
-    brgb: [0, 1000, 1000],
+    brgb: [0, 10000, 10000],
   },
   Magenta: {
     hsl: [300, 100, 50],
     hex: 'FF00FF',
     rgb: [255, 0, 255],
-    brgb: [1000, 0, 1000],
+    brgb: [10000, 0, 10000],
   },
 
   Silver: {
     hsl: [0, 0, 75],
     hex: 'BFBFBF',
     rgb: [191, 191, 191],
-    brgb: [749, 749, 749],
+    brgb: [7490, 7490, 7490],
   },
   Gray: {
     hsl: [0, 0, 50],
     hex: '808080',
     rgb: [128, 128, 128],
-    brgb: [502, 502, 502],
+    brgb: [5020, 5020, 5020],
   },
   Maroon: {
     hsl: [0, 100, 25],
     hex: '800000',
     rgb: [128, 0, 0],
-    brgb: [502, 0, 0],
+    brgb: [5020, 0, 0],
   },
   Olive: {
     hsl: [60, 100, 25],
     hex: '808000',
     rgb: [128, 128, 0],
-    brgb: [502, 502, 0],
+    brgb: [5020, 5020, 0],
   },
   Green: {
     hsl: [120, 100, 25],
     hex: '008000',
     rgb: [0, 128, 0],
-    brgb: [0, 502, 0],
+    brgb: [0, 5020, 0],
   },
   Purple: {
     hsl: [300, 100, 25],
     hex: '800080',
     rgb: [128, 0, 128],
-    brgb: [502, 0, 502],
+    brgb: [5020, 0, 5020],
   },
   Teal: {
     hsl: [180, 100, 25],
     hex: '008080',
     rgb: [0, 128, 128],
-    brgb: [0, 502, 502],
+    brgb: [0, 5020, 5020],
   },
   Navy: {
     hsl: [240, 100, 25],
     hex: '000080',
     rgb: [0, 0, 128],
-    brgb: [0, 0, 502],
+    brgb: [0, 0, 5020],
   },
 };
 
@@ -150,7 +150,9 @@ describe('The Color class', () => {
       expect(thisColor).toStrictEqual({ red: 0, green: 0, blue: 0 });
     });
     it('fromBRGB --> toRGB', () => {
-      const thisColor = color().fromBRGB({ red: 0, green: 0, blue: 0 }).toRGB();
+      const thisColor = color()
+        .fromBRGB({ bred: 0, bgreen: 0, bblue: 0 })
+        .toRGB();
       expect(thisColor).toStrictEqual({ red: 0, green: 0, blue: 0 });
     });
   });
@@ -228,9 +230,9 @@ describe('The rgb2brgb function', () => {
             blue: colorTable[key].rgb[2],
           })
         ).toStrictEqual({
-          red: colorTable[key].brgb[0],
-          green: colorTable[key].brgb[1],
-          blue: colorTable[key].brgb[2],
+          bred: colorTable[key].brgb[0],
+          bgreen: colorTable[key].brgb[1],
+          bblue: colorTable[key].brgb[2],
         });
       });
     });
@@ -243,9 +245,9 @@ describe('The brgb2rgb function', () => {
       it(`color ${key}`, () => {
         expect(
           brgb2rgb({
-            red: colorTable[key].brgb[0],
-            green: colorTable[key].brgb[1],
-            blue: colorTable[key].brgb[2],
+            bred: colorTable[key].brgb[0],
+            bgreen: colorTable[key].brgb[1],
+            bblue: colorTable[key].brgb[2],
           })
         ).toStrictEqual({
           red: colorTable[key].rgb[0],

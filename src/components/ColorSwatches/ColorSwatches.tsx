@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import type { ColorList } from '../../App';
-import { color, HslColor, RgbColor } from '../../utils/color';
+import { color, HslColor, RgbColor, BrgbColor } from '../../utils/color';
 import { ColorSwatch } from '../ColorSwatch/ColorSwatch';
 
 const ColorSwatchesWrapper = styled.div`
@@ -42,10 +42,20 @@ export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
               .fromHSL(colorItem.components as HslColor)
               .toRGB();
             break;
+          case 'brgb':
+            rgbColor = color()
+              .fromBRGB(colorItem.components as BrgbColor)
+              .toRGB();
+            break;
           default:
             throw new Error('Color not supported');
         }
-        return <ColorSwatch rgbColor={rgbColor} />;
+        return (
+          <ColorSwatch
+            key={`${colorItem.kind}-${JSON.stringify(colorItem.components)}`}
+            rgbColor={rgbColor}
+          />
+        );
       })}
     </ColorSwatchesWrapper>
   );

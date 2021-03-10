@@ -13,10 +13,10 @@ export type HslColor = {
   lightness: number; // [0, 100] percentage
 };
 
-type BrgbColor = {
-  red: number; // [0, 10000]
-  green: number; // [0, 10000]
-  blue: number; // [0, 10000]
+export type BrgbColor = {
+  bred: number; // [0, 10000]
+  bgreen: number; // [0, 10000]
+  bblue: number; // [0, 10000]
 };
 
 export const rgb2rgb = ({ red, green, blue }: RgbColor): RgbColor => {
@@ -29,17 +29,17 @@ export const rgb2rgb = ({ red, green, blue }: RgbColor): RgbColor => {
 
 export const rgb2brgb = ({ red, green, blue }: RgbColor): BrgbColor => {
   return {
-    red: Math.round((red / 255) * 1000),
-    green: Math.round((green / 255) * 1000),
-    blue: Math.round((blue / 255) * 1000),
+    bred: Math.round((red / 255) * 10000),
+    bgreen: Math.round((green / 255) * 10000),
+    bblue: Math.round((blue / 255) * 10000),
   };
 };
 
-export const brgb2rgb = ({ red, green, blue }: BrgbColor): RgbColor => {
+export const brgb2rgb = ({ bred, bgreen, bblue }: BrgbColor): RgbColor => {
   return {
-    red: Math.round((red / 1000) * 255),
-    green: Math.round((green / 1000) * 255),
-    blue: Math.round((blue / 1000) * 255),
+    red: Math.round((bred / 10000) * 255),
+    green: Math.round((bgreen / 10000) * 255),
+    blue: Math.round((bblue / 10000) * 255),
   };
 };
 
@@ -178,8 +178,8 @@ class Color {
   }
 
   public fromBRGB(brgbColor: BrgbColor): Color {
-    const { red, green, blue } = brgbColor;
-    this.color = brgb2rgb({ red, green, blue });
+    const { bred, bgreen, bblue } = brgbColor;
+    this.color = brgb2rgb({ bred, bgreen, bblue });
     return this;
   }
 

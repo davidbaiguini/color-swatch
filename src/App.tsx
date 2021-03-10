@@ -5,7 +5,7 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Button } from './components/Button/Button';
 import { ColorSwatches } from './components/ColorSwatches/ColorSwatches';
-import type { RgbColor, HslColor } from './utils/color';
+import type { RgbColor, HslColor, BrgbColor } from './utils/color';
 import { useLazyFetch } from './hooks/useLazyFetch';
 
 const PageWrapper = styled.div`
@@ -35,15 +35,15 @@ const Panel = styled.div`
 `;
 
 export type ColorListItem = {
-  kind: string; // One of "rgb", or "hsl"
-  components: RgbColor | HslColor;
+  kind: string; // One of "rgb", or "hsl", "brgb"
+  components: RgbColor | HslColor | BrgbColor;
 };
 
 export type ColorList = ColorListItem[];
 
 export const App: React.FC = () => {
   const [fetchColors, { data, loading, error }] = useLazyFetch<ColorList>(
-    'https://challenge.structrs.com/rest/colors/list'
+    'https://challenge.structrs.com/rest/colors/list-extended'
   );
 
   // Fetch the first list of colors on load
