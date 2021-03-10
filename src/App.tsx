@@ -25,11 +25,13 @@ const ButtonContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const Pannel = styled.div`
+const Panel = styled.div`
   padding: 25px;
   flex: 1;
   background: white;
   border-radius: 5px;
+  max-width: 500px;
+  margin: 0 auto;
 `;
 
 export type ColorListItem = {
@@ -53,7 +55,7 @@ export const App: React.FC = () => {
     <PageWrapper>
       <Header />
       <Page className="App-header">
-        <Pannel>
+        <Panel>
           <ButtonContainer>
             <Button onClick={() => fetchColors()}>Reload list of colors</Button>
           </ButtonContainer>
@@ -62,7 +64,7 @@ export const App: React.FC = () => {
           ) : (
             <ColorSwatches loading={loading} colorList={data} />
           )}
-        </Pannel>
+        </Panel>
       </Page>
       <Footer />
     </PageWrapper>
