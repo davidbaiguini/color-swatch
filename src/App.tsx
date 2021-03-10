@@ -1,23 +1,70 @@
-import React from "react";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
-import "./App.css";
+import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer";
+import { Button } from "./components/Button/Button";
+import { ColorSwatches } from "./components/ColorSwatches/ColorSwatches";
+import type { RgbColor, HslColor } from "./utils/color";
+import { useLazyFetch } from "./hooks/useLazyFetch";
+
+const PageWrapper = styled.div`
+  background-color: #111827;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Page = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const Pannel = styled.div`
+  padding: 25px;
+  flex: 1;
+  background: white;
+  border-radius: 5px;
+`;
+
+export type ColorListItem = {
+  kind: string; // One of "rgb", or "hsl"
+  components: RgbColor | HslColor;
+};
+
+export type ColorList = ColorListItem[];
 
 export const App: React.FC = () => {
+  const [fetchColors, { data, loading, error }] = useLazyFetch<ColorList>(
+    "https://challenge.structrs.com/rest/colors/list"
+  );
+
+  // Fetch the first list of colors on load
+  useEffect(() => {
+    fetchColors();
+  }, [fetchColors]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PageWrapper>
+      <Header />
+      <Page className="App-header">
+        <Pannel>
+          <ButtonContainer>
+            <Button onClick={() => fetchColors()}>Reload list of colors</Button>
+          </ButtonContainer>
+          {error ? (
+            "Oops, something went wrong fetching the list of colors"
+          ) : (
+            <ColorSwatches loading={loading} colorList={data} />
+          )}
+        </Pannel>
+      </Page>
+      <Footer />
+    </PageWrapper>
   );
 };

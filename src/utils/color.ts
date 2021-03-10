@@ -1,13 +1,13 @@
 // https://www.rapidtables.com/convert/color/hsl-to-rgb.html
 // https://www.peko-step.com/en/tool/hslrgb_en.html
 
-type RgbColor = {
+export type RgbColor = {
   red: number; // [0, 255]
   green: number; // [0, 255]
   blue: number; // [0, 255]
 };
 
-type HslColor = {
+export type HslColor = {
   hue: number; // [0, 360] degrees
   saturation: number; // [0, 100] percentage
   lightness: number; // [0, 100] percentage
