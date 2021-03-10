@@ -13,17 +13,33 @@ export type HslColor = {
   lightness: number; // [0, 100] percentage
 };
 
-// type BrgbColor = {
-//   red: number; // [0, 10000]
-//   green: number; // [0, 10000]
-//   blue: number; // [0, 10000]
-// };
+type BrgbColor = {
+  red: number; // [0, 10000]
+  green: number; // [0, 10000]
+  blue: number; // [0, 10000]
+};
 
 export const rgb2rgb = ({ red, green, blue }: RgbColor): RgbColor => {
   return {
     red: Math.min(red, 255),
     green: Math.min(green, 255),
     blue: Math.min(blue, 255),
+  };
+};
+
+export const rgb2brgb = ({ red, green, blue }: RgbColor): BrgbColor => {
+  return {
+    red: Math.round((red / 255) * 1000),
+    green: Math.round((green / 255) * 1000),
+    blue: Math.round((blue / 255) * 1000),
+  };
+};
+
+export const brgb2rgb = ({ red, green, blue }: BrgbColor): RgbColor => {
+  return {
+    red: Math.round((red / 1000) * 255),
+    green: Math.round((green / 1000) * 255),
+    blue: Math.round((blue / 1000) * 255),
   };
 };
 
@@ -161,6 +177,12 @@ class Color {
     return this;
   }
 
+  public fromBRGB(brgbColor: BrgbColor): Color {
+    const { red, green, blue } = brgbColor;
+    this.color = brgb2rgb({ red, green, blue });
+    return this;
+  }
+
   public toRGB() {
     const { red, green, blue } = this.color;
     return rgb2rgb({ red, green, blue });
@@ -169,6 +191,11 @@ class Color {
   public toHSL() {
     const { red, green, blue } = this.color;
     return rgb2hsl({ red, green, blue });
+  }
+
+  public toBRGB() {
+    const { red, green, blue } = this.color;
+    return rgb2brgb({ red, green, blue });
   }
 }
 
