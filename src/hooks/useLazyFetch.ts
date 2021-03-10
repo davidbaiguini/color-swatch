@@ -1,10 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 const checkStatus = async (response: Response) => {
   if (response.status === 200) {
     return response;
   }
-  throw new Error("Status code is not ok");
+  throw new Error('Status code is not ok');
 };
 
 export function useLazyFetch<TData>(
@@ -27,7 +27,7 @@ export function useLazyFetch<TData>(
       } catch (error) {
         setLoading(false);
         console.error(error);
-        setError("Oops, something went wrong fetching the data");
+        setError('Oops, something went wrong fetching the data');
       }
     },
     [url, options]

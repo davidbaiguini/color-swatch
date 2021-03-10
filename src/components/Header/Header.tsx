@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
   text-transform: uppercase;
@@ -8,7 +8,7 @@ const HeaderWrapper = styled.div`
   color: white;
 
   &:after {
-    content: "";
+    content: '';
     left: 0;
     right: 0;
     position: absolute;

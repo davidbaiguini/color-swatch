@@ -140,7 +140,7 @@ class Color {
 
   private get color() {
     if (!this._color) {
-      throw new Error("You need to first set a color");
+      throw new Error('You need to first set a color');
     }
     return this._color;
   }

@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { prop } from "styled-tools";
+import styled from 'styled-components';
+import { prop } from 'styled-tools';
 
-import { RgbColor } from "../../utils/color";
+import { RgbColor } from '../../utils/color';
 
 const ColorSwatchWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const ColorTile = styled.div<{ rgbCssColor: string }>`
   width: 75px;
   box-shadow: 0px 0px 5px 2px #000000;
   border: solid 1px white;
-  background: ${prop("rgbCssColor")};
+  background: ${prop('rgbCssColor')};
 `;
 
 const ColorText = styled.div`

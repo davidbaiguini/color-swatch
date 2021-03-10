@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import { Button } from "./components/Button/Button";
-import { ColorSwatches } from "./components/ColorSwatches/ColorSwatches";
-import type { RgbColor, HslColor } from "./utils/color";
-import { useLazyFetch } from "./hooks/useLazyFetch";
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import { Button } from './components/Button/Button';
+import { ColorSwatches } from './components/ColorSwatches/ColorSwatches';
+import type { RgbColor, HslColor } from './utils/color';
+import { useLazyFetch } from './hooks/useLazyFetch';
 
 const PageWrapper = styled.div`
   background-color: #111827;
@@ -41,7 +41,7 @@ export type ColorList = ColorListItem[];
 
 export const App: React.FC = () => {
   const [fetchColors, { data, loading, error }] = useLazyFetch<ColorList>(
-    "https://challenge.structrs.com/rest/colors/list"
+    'https://challenge.structrs.com/rest/colors/list'
   );
 
   // Fetch the first list of colors on load
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
             <Button onClick={() => fetchColors()}>Reload list of colors</Button>
           </ButtonContainer>
           {error ? (
-            "Oops, something went wrong fetching the list of colors"
+            'Oops, something went wrong fetching the list of colors'
           ) : (
             <ColorSwatches loading={loading} colorList={data} />
           )}

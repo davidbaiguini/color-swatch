@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import type { ColorList } from "../../App";
-import { color, HslColor, RgbColor } from "../../utils/color";
-import { ColorSwatch } from "../ColorSwatch/ColorSwatch";
+import type { ColorList } from '../../App';
+import { color, HslColor, RgbColor } from '../../utils/color';
+import { ColorSwatch } from '../ColorSwatch/ColorSwatch';
 
 const ColorSwatchesWrapper = styled.div`
   display: grid;
@@ -32,18 +32,18 @@ export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
       {colorList.map((colorItem) => {
         let rgbColor;
         switch (colorItem.kind) {
-          case "rgb":
+          case 'rgb':
             rgbColor = color()
               .fromRGB(colorItem.components as RgbColor)
               .toRGB();
             break;
-          case "hsl":
+          case 'hsl':
             rgbColor = color()
               .fromHSL(colorItem.components as HslColor)
               .toRGB();
             break;
           default:
-            throw new Error("Color not supported");
+            throw new Error('Color not supported');
         }
         return <ColorSwatch rgbColor={rgbColor} />;
       })}
