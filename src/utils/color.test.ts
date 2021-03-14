@@ -170,6 +170,18 @@ describe('The Color class', () => {
     });
   });
 
+  describe('Should have a constructor that allows parameters', () => {
+    it('using hsl', () => {
+      expect(
+        color('hsl', {
+          hue: 0,
+          saturation: 0,
+          lightness: 0,
+        }).toRGB()
+      ).toStrictEqual({ red: 0, green: 0, blue: 0 });
+    });
+  });
+
   //   describe("Should fail missing SOMETHING", () => {
   //     it("using toRGB method", () => {
   //       expect(() => {

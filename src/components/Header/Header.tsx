@@ -6,6 +6,8 @@ const HeaderWrapper = styled.div`
   text-align: center;
   position: relative;
   color: white;
+  background-color: #111827;
+  z-index: 1;
 
   &:after {
     content: '';
@@ -13,12 +15,8 @@ const HeaderWrapper = styled.div`
     right: 0;
     position: absolute;
     height: 3px;
-    background: rgb(254, 0, 215);
-    background: linear-gradient(
-      90deg,
-      rgba(254, 0, 215, 1) 0%,
-      rgba(0, 106, 255, 1) 100%
-    );
+    background: #fe00d7;
+    background: linear-gradient(90deg, #006aff 0%, #52e0c4 50%, #fe00d7 100%);
   }
 `;
 

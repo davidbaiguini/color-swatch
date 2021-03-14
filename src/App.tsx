@@ -8,7 +8,7 @@ import { ColorSwatches } from './components/ColorSwatches/ColorSwatches';
 import type { RgbColor, HslColor, BrgbColor } from './utils/color';
 import { useLazyFetch } from './hooks/useLazyFetch';
 
-const PageWrapper = styled.div`
+const AppWrapper = styled.div`
   background-color: #111827;
   min-height: 100vh;
   display: flex;
@@ -18,6 +18,7 @@ const PageWrapper = styled.div`
 const Page = styled.div`
   flex: 1;
   padding: 20px;
+  position: relative;
 `;
 
 const ButtonContainer = styled.div`
@@ -26,16 +27,41 @@ const ButtonContainer = styled.div`
 `;
 
 const Panel = styled.div`
-  padding: 25px;
+  padding: 10px;
   flex: 1;
   background: white;
   border-radius: 5px;
   max-width: 500px;
   margin: 0 auto;
+  position: relative;
+`;
+
+const PanelContent = styled.div`
+  position: relative;
+  padding: 25px;
+  background: white;
+  border-radius: 5px;
+  min-height: 555px;
+`;
+
+const PanelBackground = styled.div`
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  bottom: -10px;
+  right: -10px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #006aff 0deg,
+    #52e0c4 139.2deg,
+    #fe00d7 285.11deg,
+    #006aff 320deg
+  );
+  filter: blur(150px);
 `;
 
 export type ColorListItem = {
-  kind: string; // One of "rgb", or "hsl", "brgb"
+  kind: 'rgb' | 'hsl' | 'brgb';
   components: RgbColor | HslColor | BrgbColor;
 };
 
@@ -52,21 +78,26 @@ export const App: React.FC = () => {
   }, [fetchColors]);
 
   return (
-    <PageWrapper>
+    <AppWrapper>
       <Header />
-      <Page className="App-header">
+      <Page>
         <Panel>
-          <ButtonContainer>
-            <Button onClick={() => fetchColors()}>Reload list of colors</Button>
-          </ButtonContainer>
-          {error ? (
-            'Oops, something went wrong fetching the list of colors'
-          ) : (
-            <ColorSwatches loading={loading} colorList={data} />
-          )}
+          <PanelBackground />
+          <PanelContent>
+            <ButtonContainer>
+              <Button onClick={() => fetchColors()}>
+                Reload list of colors
+              </Button>
+            </ButtonContainer>
+            {error ? (
+              'Oops, something went wrong fetching the list of colors'
+            ) : (
+              <ColorSwatches loading={loading} colorList={data} />
+            )}
+          </PanelContent>
         </Panel>
       </Page>
       <Footer />
-    </PageWrapper>
+    </AppWrapper>
   );
 };

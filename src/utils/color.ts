@@ -19,6 +19,12 @@ export type BrgbColor = {
   bblue: number; // [0, 10000]
 };
 
+type colorSpaces = {
+  hsl: HslColor;
+  rgb: RgbColor;
+  brgb: BrgbColor;
+};
+
 export const rgb2rgb = ({ red, green, blue }: RgbColor): RgbColor => {
   return {
     red: Math.min(red, 255),
@@ -152,7 +158,26 @@ export const hsl2rgb = (hslColor: HslColor): RgbColor => {
 class Color {
   private _color?: RgbColor;
 
-  // constructor() {}
+  constructor(
+    colorSpace?: keyof colorSpaces,
+    color?: colorSpaces[keyof colorSpaces]
+  ) {
+    if (colorSpace && color) {
+      switch (colorSpace) {
+        case 'rgb':
+          this.fromRGB(color as RgbColor);
+          break;
+        case 'hsl':
+          this.fromHSL(color as HslColor);
+          break;
+        case 'brgb':
+          this.fromBRGB(color as BrgbColor);
+          break;
+        default:
+          throw new Error('Color space not supported');
+      }
+    }
+  }
 
   private get color() {
     if (!this._color) {
@@ -199,6 +224,9 @@ class Color {
   }
 }
 
-export const color = (): Color => {
-  return new Color();
+export const color = (
+  colorSpace?: keyof colorSpaces,
+  color?: colorSpaces[keyof colorSpaces]
+): Color => {
+  return new Color(colorSpace, color);
 };

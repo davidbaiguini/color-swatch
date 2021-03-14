@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import type { ColorList } from '../../App';
-import { color, HslColor, RgbColor, BrgbColor } from '../../utils/color';
+import { color } from '../../utils/color';
 import { ColorSwatch } from '../ColorSwatch/ColorSwatch';
 
 const ColorSwatchesWrapper = styled.div`
   display: grid;
-  grid-gap: 25px;
+  grid-gap: 5px;
 `;
 
 type ColorSwatchesProps = {
@@ -19,6 +19,8 @@ export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
   colorList,
   loading,
 }) => {
+  const [selectedColor, setSelectedColor] = useState('');
+
   if (loading) {
     return <div>loading...</div>;
   }
@@ -30,29 +32,18 @@ export const ColorSwatches: React.FC<ColorSwatchesProps> = ({
   return (
     <ColorSwatchesWrapper>
       {colorList.map((colorItem) => {
-        let rgbColor;
-        switch (colorItem.kind) {
-          case 'rgb':
-            rgbColor = color()
-              .fromRGB(colorItem.components as RgbColor)
-              .toRGB();
-            break;
-          case 'hsl':
-            rgbColor = color()
-              .fromHSL(colorItem.components as HslColor)
-              .toRGB();
-            break;
-          case 'brgb':
-            rgbColor = color()
-              .fromBRGB(colorItem.components as BrgbColor)
-              .toRGB();
-            break;
-          default:
-            throw new Error('Color not supported');
-        }
+        const rgbColor = color(colorItem.kind, colorItem.components).toRGB();
+        const idColor = `${colorItem.kind}-${JSON.stringify(
+          colorItem.components
+        )}`;
         return (
           <ColorSwatch
-            key={`${colorItem.kind}-${JSON.stringify(colorItem.components)}`}
+            onClick={() => setSelectedColor(idColor)}
+            isSelected={selectedColor === idColor}
+            key={idColor}
+            colorText={`${colorItem.kind}: ${JSON.stringify(
+              colorItem.components
+            )}`}
             rgbColor={rgbColor}
           />
         );
